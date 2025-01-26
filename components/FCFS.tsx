@@ -146,20 +146,28 @@ export default function FCFS({ DATA }: { DATA: ProcessInterface[] }) {
               Avg.
             </div>
             <div className="tbh col-span-2 border-s border-y border-[var(--aj-dark)] px-2 py-1">
-              {TABLE.reduce((acc, curr) => acc + curr.waitingTime, 0) /
-                TABLE.length}
+              {(
+                TABLE.reduce((acc, curr) => acc + curr.waitingTime, 0) /
+                TABLE.length
+              ).toFixed(2)}
             </div>
             <div className="tbh col-span-2 border-s border-y border-[var(--aj-dark)] px-2 py-1">
-              {TABLE.reduce((acc, curr) => acc + curr.completionTime, 0) /
-                TABLE.length}
+              {(
+                TABLE.reduce((acc, curr) => acc + curr.completionTime, 0) /
+                TABLE.length
+              ).toFixed(2)}
             </div>
             <div className="tbh col-span-2 border-s border-y border-[var(--aj-dark)] px-2 py-1">
-              {TABLE.reduce((acc, curr) => acc + curr.turnAroundTime, 0) /
-                TABLE.length}
+              {(
+                TABLE.reduce((acc, curr) => acc + curr.turnAroundTime, 0) /
+                TABLE.length
+              ).toFixed(2)}
             </div>
             <div className="tbh col-span-2 border-x border-y border-[var(--aj-dark)] px-2 py-1">
-              {TABLE.reduce((acc, curr) => acc + curr.responseTime, 0) /
-                TABLE.length}
+              {(
+                TABLE.reduce((acc, curr) => acc + curr.responseTime, 0) /
+                TABLE.length
+              ).toFixed(2)}
             </div>
           </>
         )}
