@@ -9,9 +9,14 @@ export default function FCFS({ DATA }: { DATA: ProcessInterface[] }) {
 
   React.useEffect(() => {
     if (DATA.length > 0) {
+      const cp = JSON.parse(JSON.stringify(DATA));
+      cp.sort(
+        (a: ProcessInterface, b: ProcessInterface) =>
+          a.arrivalTime - b.arrivalTime
+      );
       const temp: ProcessCalculationInterface[] = [];
       let currentTime = 0;
-      DATA.forEach((process) => {
+      cp.forEach((process: ProcessInterface) => {
         const waitingTime =
           currentTime - process.arrivalTime > 0
             ? currentTime - process.arrivalTime
