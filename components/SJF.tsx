@@ -11,7 +11,10 @@ export default function SJF({ DATA }: { DATA: ProcessInterface[] }) {
     if (DATA.length > 0) {
       const cp = JSON.parse(JSON.stringify(DATA));
       const temp: ProcessCalculationInterface[] = [];
-      let currentTime = 0;
+      let currentTime = cp.sort(
+        (a: ProcessInterface, b: ProcessInterface) =>
+          a.arrivalTime - b.arrivalTime
+      )[0].arrivalTime;
       cp.sort(
         (a: ProcessInterface, b: ProcessInterface) => a.burstTime - b.burstTime
       );
@@ -20,8 +23,14 @@ export default function SJF({ DATA }: { DATA: ProcessInterface[] }) {
           currentTime - process.arrivalTime > 0
             ? currentTime - process.arrivalTime
             : 0;
-        const completionTime = currentTime + process.burstTime;
-        const turnAroundTime = completionTime - process.arrivalTime;
+        const completionTime =
+          currentTime + process.burstTime > 0
+            ? currentTime + process.burstTime
+            : 0;
+        const turnAroundTime =
+          completionTime - process.arrivalTime > 0
+            ? completionTime - process.arrivalTime
+            : 0;
         const responseTime = waitingTime;
         const startTime = currentTime;
         currentTime = completionTime;
@@ -48,22 +57,22 @@ export default function SJF({ DATA }: { DATA: ProcessInterface[] }) {
             <div className="tbh col-span-1 border-s border-t border-[var(--aj-light)] px-2 py-1 text-[var(--aj-light)]">
               PID
             </div>
-            <div className="tbh col-span-2 border-s border-t border-[var(--aj-light)] px-2 py-1 text-[var(--aj-light)]">
+            <div className="tbh text-center col-span-2 border-s border-t border-[var(--aj-light)] px-2 py-1 text-[var(--aj-light)]">
               AT
             </div>
-            <div className="tbh col-span-2 border-s border-t border-[var(--aj-light)] px-2 py-1 text-[var(--aj-light)]">
+            <div className="tbh text-center col-span-2 border-s border-t border-[var(--aj-light)] px-2 py-1 text-[var(--aj-light)]">
               BT
             </div>
-            <div className="tbh col-span-2 border-s border-t border-[var(--aj-light)] px-2 py-1 text-[var(--aj-light)]">
+            <div className="tbh text-center col-span-2 border-s border-t border-[var(--aj-light)] px-2 py-1 text-[var(--aj-light)]">
               WT
             </div>
-            <div className="tbh col-span-2 border-s border-t border-[var(--aj-light)] px-2 py-1 text-[var(--aj-light)]">
+            <div className="tbh text-center col-span-2 border-s border-t border-[var(--aj-light)] px-2 py-1 text-[var(--aj-light)]">
               CT
             </div>
-            <div className="tbh col-span-2 border-s border-t border-[var(--aj-light)] px-2 py-1 text-[var(--aj-light)]">
+            <div className="tbh text-center col-span-2 border-s border-t border-[var(--aj-light)] px-2 py-1 text-[var(--aj-light)]">
               TAT
             </div>
-            <div className="tbh col-span-2 border-x border-t border-[var(--aj-light)] px-2 py-1 text-[var(--aj-light)]">
+            <div className="tbh text-center col-span-2 border-x border-t border-[var(--aj-light)] px-2 py-1 text-[var(--aj-light)]">
               RT
             </div>
           </>
@@ -84,7 +93,7 @@ export default function SJF({ DATA }: { DATA: ProcessInterface[] }) {
                     {process.pid}
                   </div>
                   <div
-                    className={`tbd col-span-2 border-s border-b border-[var(--aj-light)] px-2 py-1 ${
+                    className={`tbd text-center col-span-2 border-s border-b border-[var(--aj-light)] px-2 py-1 ${
                       index % 2 === 0
                         ? "bg-[var(--aj-gray-light)]"
                         : "bg-[var(--aj-secondary)]"
@@ -93,7 +102,7 @@ export default function SJF({ DATA }: { DATA: ProcessInterface[] }) {
                     {process.arrivalTime}
                   </div>
                   <div
-                    className={`tbd col-span-2 border-s border-b border-[var(--aj-light)] px-2 py-1 ${
+                    className={`tbd text-center col-span-2 border-s border-b border-[var(--aj-light)] px-2 py-1 ${
                       index % 2 === 0
                         ? "bg-[var(--aj-gray-light)]"
                         : "bg-[var(--aj-secondary)]"
@@ -102,7 +111,7 @@ export default function SJF({ DATA }: { DATA: ProcessInterface[] }) {
                     {process.burstTime}
                   </div>
                   <div
-                    className={`tbd col-span-2 border-s border-b border-[var(--aj-light)] px-2 py-1 ${
+                    className={`tbd text-center col-span-2 border-s border-b border-[var(--aj-light)] px-2 py-1 ${
                       index % 2 === 0
                         ? "bg-[var(--aj-gray-light)]"
                         : "bg-[var(--aj-secondary)]"
@@ -111,7 +120,7 @@ export default function SJF({ DATA }: { DATA: ProcessInterface[] }) {
                     {process.waitingTime}
                   </div>
                   <div
-                    className={`tbd col-span-2 border-s border-b border-[var(--aj-light)] px-2 py-1 ${
+                    className={`tbd text-center col-span-2 border-s border-b border-[var(--aj-light)] px-2 py-1 ${
                       index % 2 === 0
                         ? "bg-[var(--aj-gray-light)]"
                         : "bg-[var(--aj-secondary)]"
@@ -120,7 +129,7 @@ export default function SJF({ DATA }: { DATA: ProcessInterface[] }) {
                     {process.completionTime}
                   </div>
                   <div
-                    className={`tbd col-span-2 border-s border-b border-[var(--aj-light)] px-2 py-1 ${
+                    className={`tbd text-center col-span-2 border-s border-b border-[var(--aj-light)] px-2 py-1 ${
                       index % 2 === 0
                         ? "bg-[var(--aj-gray-light)]"
                         : "bg-[var(--aj-secondary)]"
@@ -129,7 +138,7 @@ export default function SJF({ DATA }: { DATA: ProcessInterface[] }) {
                     {process.turnAroundTime}
                   </div>
                   <div
-                    className={`tbd col-span-2 border-x border-b border-[var(--aj-light)] px-2 py-1 ${
+                    className={`tbd text-center col-span-2 border-x border-b border-[var(--aj-light)] px-2 py-1 ${
                       index % 2 === 0
                         ? "bg-[var(--aj-gray-light)]"
                         : "bg-[var(--aj-secondary)]"
