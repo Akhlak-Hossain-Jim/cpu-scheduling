@@ -1,20 +1,20 @@
 "use client";
 import FCFS from "@/components/FCFS";
 import SJF from "@/components/SJF";
+import { generateRandomProcesses } from "@/utils/functions";
 import { ProcessInterface } from "@/utils/interfaces";
 import React, { useEffect, useState } from "react";
 
 export default function Home() {
-  const DummyInputProcesses: ProcessInterface[] = [
-    { pid: "P1", arrivalTime: 0, burstTime: 6 },
-    { pid: "P2", arrivalTime: 1, burstTime: 8 },
-    { pid: "P3", arrivalTime: 2, burstTime: 3 },
-    { pid: "P4", arrivalTime: 3, burstTime: 5 },
-    { pid: "P5", arrivalTime: 4, burstTime: 2 },
-  ];
+  // const DummyInputProcesses: ProcessInterface[] = [
+  //   { pid: "P1", arrivalTime: 0, burstTime: 6 },
+  //   { pid: "P2", arrivalTime: 1, burstTime: 8 },
+  //   { pid: "P3", arrivalTime: 2, burstTime: 3 },
+  //   { pid: "P4", arrivalTime: 3, burstTime: 5 },
+  //   { pid: "P5", arrivalTime: 4, burstTime: 2 },
+  // ];
 
-  const [Process, setProcess] =
-    useState<ProcessInterface[]>(DummyInputProcesses);
+  const [Process, setProcess] = useState<ProcessInterface[]>([]);
 
   const [pid, setPid] = useState("");
   const [arrivalTime, setArrivalTime] = useState(0);
@@ -129,6 +129,12 @@ export default function Home() {
                 Add
               </button>
             </form>
+            <button
+              className="bg-[var(--aj-dark)] text-[var(--aj-light)] rounded-lg px-4 py-2 my-4"
+              onClick={() => setProcess(generateRandomProcesses(8, 10, 30))}
+            >
+              Generate Random Processes
+            </button>
           </div>
         </div>
       </div>
