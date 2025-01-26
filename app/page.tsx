@@ -1,101 +1,137 @@
-import Image from "next/image";
+"use client";
+import FCFS from "@/components/FCFS";
+import SJF from "@/components/SJF";
+import { ProcessInterface } from "@/utils/interfaces";
+import React, { useEffect, useState } from "react";
 
 export default function Home() {
-  return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              app/page.tsx
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
+  const DummyInputProcesses: ProcessInterface[] = [
+    { pid: "P1", arrivalTime: 0, burstTime: 6 },
+    { pid: "P2", arrivalTime: 1, burstTime: 8 },
+    { pid: "P3", arrivalTime: 2, burstTime: 3 },
+    { pid: "P4", arrivalTime: 3, burstTime: 5 },
+    { pid: "P5", arrivalTime: 4, burstTime: 2 },
+  ];
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+  const [Process, setProcess] =
+    useState<ProcessInterface[]>(DummyInputProcesses);
+
+  const [pid, setPid] = useState("");
+  const [arrivalTime, setArrivalTime] = useState(0);
+  const [BurstTime, setBurstTime] = useState("");
+
+  useEffect(() => {
+    if (Process.length > 0)
+      setInterval(() => {
+        setArrivalTime((prev) => prev + 1);
+      }, 5000);
+  }, [Process.length]);
+
+  return (
+    <main className="w-[min(1440px,100%)] mx-auto my-0 text-black">
+      <div className="grid grid-cols-[repeat(13,1fr)] h-dvh overflow-hidden">
+        <div className="col-span-5 bg-[var(--aj-dark)]">
+          <SJF DATA={Process} />
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
+        <div className="col-span-5 bg-[var(--aj-dark)]">
+          <div className="h-full w-full rounded-s-2xl bg-[var(--aj-gray-dark)]">
+            <FCFS DATA={Process} />
+          </div>
+        </div>
+        <div className="col-span-3 bg-[var(--aj-gray-dark)]">
+          <div className="h-full w-full rounded-s-2xl bg-[var(--aj-light)] p-4">
+            {Process.length > 0 && (
+              <>
+                <div className="table w-full">
+                  <>
+                    <h2 className="text-2xl text-[var(--aj-dark)] font-semibold">
+                      Process Table:
+                    </h2>
+                    <div className="flex justify-between border-b-2 border-dashed border-[var(--aj-dark)] bg-[var(--aj-gray-dark)] text-[var(--aj-dark)] px-2">
+                      <span className="font-semibold">PID</span>
+                      <span className="font-semibold">Arrival Time</span>
+                      <span className="font-semibold">Brust Time</span>
+                    </div>
+                  </>
+                  {React.Children.toArray(
+                    Process.map((process, index) => (
+                      <div
+                        className={`flex justify-between ${
+                          index % 2 === 0
+                            ? "bg-[var(--aj-gray-light)]"
+                            : "bg-[var(--aj-secondary)]"
+                        } px-2`}
+                      >
+                        <span>P{process.pid}</span>
+                        <span>{process.arrivalTime}</span>
+                        <span>{process.burstTime}</span>
+                      </div>
+                    ))
+                  )}
+                </div>
+                <div className="border-t-2 border-dashed border-[var(--aj-dark)] mb-4"></div>
+              </>
+            )}
+
+            <form
+              className="flex flex-col gap-4"
+              onSubmit={(e) => {
+                e.preventDefault();
+                setProcess([
+                  ...Process,
+                  {
+                    pid,
+                    arrivalTime: arrivalTime,
+                    burstTime: parseInt(BurstTime),
+                  },
+                ]);
+                setPid("");
+                setBurstTime("");
+              }}
+            >
+              <h2 className="text-2xl text-[var(--aj-dark)] font-semibold m-0">
+                Add Process:
+              </h2>
+              <div className="grid grid-cols-2 gap-4">
+                <div className="flex flex-col gap-1">
+                  <label htmlFor="PID">Process ID:</label>
+                  <input
+                    className="border-2 border-[var(--aj-dark)] rounded-lg px-2 py-1"
+                    type="number"
+                    name="PID"
+                    id="PID"
+                    required
+                    placeholder="1"
+                    value={pid}
+                    onChange={(e) => setPid(e.target.value)}
+                  />
+                </div>
+                {/* <div className="flex flex-col gap-1"><label htmlFor=""></label><input
+            className="border-2 border-gray-500" type="number" name="PID" id="PID" /></div> */}
+                <div className="flex flex-col gap-1">
+                  <label htmlFor="BT">Brust Time:</label>
+                  <input
+                    className="border-2 border-[var(--aj-dark)] rounded-lg px-2 py-1"
+                    type="number"
+                    name="BT"
+                    id="BT"
+                    required
+                    placeholder="1"
+                    value={BurstTime}
+                    onChange={(e) => setBurstTime(e.target.value)}
+                  />
+                </div>
+              </div>
+              <button
+                className="bg-[var(--aj-dark)] text-[var(--aj-light)] rounded-lg px-4 py-2"
+                type="submit"
+              >
+                Add
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </main>
   );
 }
