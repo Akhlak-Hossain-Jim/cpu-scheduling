@@ -43,31 +43,53 @@ export default function Home() {
             {Process.length > 0 && (
               <>
                 <div className="table w-full">
-                  <>
-                    <h2 className="text-2xl text-[var(--aj-dark)] font-semibold">
-                      Process Table:
-                    </h2>
-                    <div className="flex justify-between border-b-2 border-dashed border-[var(--aj-dark)] bg-[var(--aj-gray-dark)] text-[var(--aj-dark)] px-2">
-                      <span className="font-semibold">PID</span>
-                      <span className="font-semibold">Arrival Time</span>
-                      <span className="font-semibold">Brust Time</span>
-                    </div>
-                  </>
-                  {React.Children.toArray(
-                    Process.map((process, index) => (
-                      <div
-                        className={`flex justify-between ${
-                          index % 2 === 0
-                            ? "bg-[var(--aj-gray-light)]"
-                            : "bg-[var(--aj-secondary)]"
-                        } px-2`}
-                      >
-                        <span>{process.pid}</span>
-                        <span>{process.arrivalTime}</span>
-                        <span>{process.burstTime}</span>
-                      </div>
-                    ))
-                  )}
+                  <h2 className="text-2xl text-[var(--aj-dark)] font-semibold">
+                    Process Table:
+                  </h2>
+                  <div className="grid grid-cols-5">
+                    <span className="col-span-1 font-semibold border-b-2 border-dashed border-[var(--aj-dark)] bg-[var(--aj-gray-dark)] text-[var(--aj-dark)] px-2">
+                      PID
+                    </span>
+                    <span className="col-span-2 text-center font-semibold border-b-2 border-dashed border-[var(--aj-dark)] bg-[var(--aj-gray-dark)] text-[var(--aj-dark)] px-2">
+                      Arrival Time
+                    </span>
+                    <span className="col-span-2 text-center font-semibold border-b-2 border-dashed border-[var(--aj-dark)] bg-[var(--aj-gray-dark)] text-[var(--aj-dark)] px-2">
+                      Brust Time
+                    </span>
+                    {React.Children.toArray(
+                      Process.map((process, index) => (
+                        <>
+                          <span
+                            className={`col-span-1 ${
+                              index % 2 === 0
+                                ? "bg-[var(--aj-gray-light)]"
+                                : "bg-[var(--aj-secondary)]"
+                            } px-2`}
+                          >
+                            {process.pid}
+                          </span>
+                          <span
+                            className={`col-span-2 text-center ${
+                              index % 2 === 0
+                                ? "bg-[var(--aj-gray-light)]"
+                                : "bg-[var(--aj-secondary)]"
+                            } px-2`}
+                          >
+                            {process.arrivalTime}
+                          </span>
+                          <span
+                            className={`col-span-2 text-center ${
+                              index % 2 === 0
+                                ? "bg-[var(--aj-gray-light)]"
+                                : "bg-[var(--aj-secondary)]"
+                            } px-2`}
+                          >
+                            {process.burstTime}
+                          </span>
+                        </>
+                      ))
+                    )}
+                  </div>
                 </div>
                 <div className="border-t-2 border-dashed border-[var(--aj-dark)] mb-4"></div>
               </>
