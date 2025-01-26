@@ -139,6 +139,30 @@ export default function SJF({ DATA }: { DATA: ProcessInterface[] }) {
               </>
             ))
           )}
+        {DATA.length > 0 && (
+          <>
+            <div className="tbh col-span-5 border-s border-t border-[var(--aj-gray-dark)] px-2 py-1 bg-[var(--aj-light)]">
+              Avg.
+            </div>
+            <div className="tbh col-span-2 border-s border-t border-[var(--aj-gray-dark)] px-2 py-1 bg-[var(--aj-light)]">
+              {TABLE.reduce((acc, curr) => acc + curr.waitingTime, 0) /
+                TABLE.length}
+            </div>
+            <div className="tbh col-span-2 border-s border-t border-[var(--aj-gray-dark)] px-2 py-1 bg-[var(--aj-light)]">
+              {TABLE.reduce((acc, curr) => acc + curr.completionTime, 0) /
+                TABLE.length}
+            </div>
+            <div className="tbh col-span-2 border-s border-t border-[var(--aj-gray-dark)] px-2 py-1 bg-[var(--aj-light)]">
+              T
+              {TABLE.reduce((acc, curr) => acc + curr.turnAroundTime, 0) /
+                TABLE.length}
+            </div>
+            <div className="tbh col-span-2 border-x border-t border-[var(--aj-gray-dark)] px-2 py-1 bg-[var(--aj-light)]">
+              {TABLE.reduce((acc, curr) => acc + curr.responseTime, 0) /
+                TABLE.length}
+            </div>
+          </>
+        )}
       </div>
 
       <h2 className="text-2xl font-semibold pb-2 mt-3 text-[var(--aj-light)]">
