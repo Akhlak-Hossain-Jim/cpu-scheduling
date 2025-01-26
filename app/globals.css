@@ -5,6 +5,16 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+
+  --aj-dark: #261d56;
+  --aj-dark-secondary: #8080a7;
+
+  --aj-gray-dark: #dee8ff;
+  --aj-gray-light: #e9ebef;
+
+  --aj-light: #f8faff;
+
+  --aj-secondary: #f1c2b7;
 }
 
 @media (prefers-color-scheme: dark) {
