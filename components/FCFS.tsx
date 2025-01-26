@@ -10,19 +10,28 @@ export default function FCFS({ DATA }: { DATA: ProcessInterface[] }) {
   React.useEffect(() => {
     if (DATA.length > 0) {
       const cp = JSON.parse(JSON.stringify(DATA));
+      let currentTime = cp.sort(
+        (a: ProcessInterface, b: ProcessInterface) =>
+          a.arrivalTime - b.arrivalTime
+      )[0].arrivalTime;
       cp.sort(
         (a: ProcessInterface, b: ProcessInterface) =>
           a.arrivalTime - b.arrivalTime
       );
       const temp: ProcessCalculationInterface[] = [];
-      let currentTime = 0;
       cp.forEach((process: ProcessInterface) => {
         const waitingTime =
           currentTime - process.arrivalTime > 0
             ? currentTime - process.arrivalTime
             : 0;
-        const completionTime = currentTime + process.burstTime;
-        const turnAroundTime = completionTime;
+        const completionTime =
+          currentTime + process.burstTime > 0
+            ? currentTime + process.burstTime
+            : 0;
+        const turnAroundTime =
+          completionTime - process.arrivalTime > 0
+            ? completionTime - process.arrivalTime
+            : 0;
         const responseTime = waitingTime;
         const startTime = currentTime;
         currentTime = completionTime;
@@ -47,22 +56,22 @@ export default function FCFS({ DATA }: { DATA: ProcessInterface[] }) {
             <div className="tbh col-span-1 border-s border-t border-[var(--aj-dark)] px-2 py-1">
               PID
             </div>
-            <div className="tbh col-span-2 border-s border-t border-[var(--aj-dark)] px-2 py-1">
+            <div className="tbh text-center col-span-2 border-s border-t border-[var(--aj-dark)] px-2 py-1">
               AT
             </div>
-            <div className="tbh col-span-2 border-s border-t border-[var(--aj-dark)] px-2 py-1">
+            <div className="tbh text-center col-span-2 border-s border-t border-[var(--aj-dark)] px-2 py-1">
               BT
             </div>
-            <div className="tbh col-span-2 border-s border-t border-[var(--aj-dark)] px-2 py-1">
+            <div className="tbh text-center col-span-2 border-s border-t border-[var(--aj-dark)] px-2 py-1">
               WT
             </div>
-            <div className="tbh col-span-2 border-s border-t border-[var(--aj-dark)] px-2 py-1">
+            <div className="tbh text-center col-span-2 border-s border-t border-[var(--aj-dark)] px-2 py-1">
               CT
             </div>
-            <div className="tbh col-span-2 border-s border-t border-[var(--aj-dark)] px-2 py-1">
+            <div className="tbh text-center col-span-2 border-s border-t border-[var(--aj-dark)] px-2 py-1">
               TAT
             </div>
-            <div className="tbh col-span-2 border-x border-t border-[var(--aj-dark)] px-2 py-1">
+            <div className="tbh text-center col-span-2 border-x border-t border-[var(--aj-dark)] px-2 py-1">
               RT
             </div>
           </>
@@ -83,7 +92,7 @@ export default function FCFS({ DATA }: { DATA: ProcessInterface[] }) {
                     {process.pid}
                   </div>
                   <div
-                    className={`tbh col-span-2 border-s border-b border-[var(--aj-dark)] px-2 py-1 ${
+                    className={`tbh text-center col-span-2 border-s border-b border-[var(--aj-dark)] px-2 py-1 ${
                       index % 2 === 0
                         ? "bg-[var(--aj-gray-light)]"
                         : "bg-[var(--aj-secondary)]"
@@ -92,7 +101,7 @@ export default function FCFS({ DATA }: { DATA: ProcessInterface[] }) {
                     {process.arrivalTime}
                   </div>
                   <div
-                    className={`tbh col-span-2 border-s border-b border-[var(--aj-dark)] px-2 py-1 ${
+                    className={`tbh text-center col-span-2 border-s border-b border-[var(--aj-dark)] px-2 py-1 ${
                       index % 2 === 0
                         ? "bg-[var(--aj-gray-light)]"
                         : "bg-[var(--aj-secondary)]"
@@ -101,7 +110,7 @@ export default function FCFS({ DATA }: { DATA: ProcessInterface[] }) {
                     {process.burstTime}
                   </div>
                   <div
-                    className={`tbh col-span-2 border-s border-b border-[var(--aj-dark)] px-2 py-1 ${
+                    className={`tbh text-center col-span-2 border-s border-b border-[var(--aj-dark)] px-2 py-1 ${
                       index % 2 === 0
                         ? "bg-[var(--aj-gray-light)]"
                         : "bg-[var(--aj-secondary)]"
@@ -110,7 +119,7 @@ export default function FCFS({ DATA }: { DATA: ProcessInterface[] }) {
                     {process.waitingTime}
                   </div>
                   <div
-                    className={`tbh col-span-2 border-s border-b border-[var(--aj-dark)] px-2 py-1 ${
+                    className={`tbh text-center col-span-2 border-s border-b border-[var(--aj-dark)] px-2 py-1 ${
                       index % 2 === 0
                         ? "bg-[var(--aj-gray-light)]"
                         : "bg-[var(--aj-secondary)]"
@@ -119,7 +128,7 @@ export default function FCFS({ DATA }: { DATA: ProcessInterface[] }) {
                     {process.completionTime}
                   </div>
                   <div
-                    className={`tbh col-span-2 border-s border-b border-[var(--aj-dark)] px-2 py-1 ${
+                    className={`tbh text-center col-span-2 border-s border-b border-[var(--aj-dark)] px-2 py-1 ${
                       index % 2 === 0
                         ? "bg-[var(--aj-gray-light)]"
                         : "bg-[var(--aj-secondary)]"
@@ -128,7 +137,7 @@ export default function FCFS({ DATA }: { DATA: ProcessInterface[] }) {
                     {process.turnAroundTime}
                   </div>
                   <div
-                    className={`tbh col-span-2 border-x border-b border-[var(--aj-dark)] px-2 py-1 ${
+                    className={`tbh text-center col-span-2 border-x border-b border-[var(--aj-dark)] px-2 py-1 ${
                       index % 2 === 0
                         ? "bg-[var(--aj-gray-light)]"
                         : "bg-[var(--aj-secondary)]"
