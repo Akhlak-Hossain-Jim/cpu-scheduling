@@ -62,7 +62,7 @@ export default function Home() {
                             : "bg-[var(--aj-secondary)]"
                         } px-2`}
                       >
-                        <span>P{process.pid}</span>
+                        <span>{process.pid}</span>
                         <span>{process.arrivalTime}</span>
                         <span>{process.burstTime}</span>
                       </div>
@@ -80,7 +80,7 @@ export default function Home() {
                 setProcess([
                   ...Process,
                   {
-                    pid,
+                    pid: `P${pid}`,
                     arrivalTime: arrivalTime,
                     burstTime: parseInt(BurstTime),
                   },
