@@ -70,73 +70,75 @@ export default function FCFS({ DATA }: { DATA: ProcessInterface[] }) {
         {TABLE &&
           TABLE.length > 0 &&
           React.Children.toArray(
-            TABLE.map((process, index) => (
-              <>
-                <div
-                  className={`tbh col-span-1 border-s border-b border-[var(--aj-dark)] px-2 py-1 ${
-                    index % 2 === 0
-                      ? "bg-[var(--aj-gray-light)]"
-                      : "bg-[var(--aj-secondary)]"
-                  } ${index === 0 ? "border-t-2" : ""}`}
-                >
-                  {process.pid}
-                </div>
-                <div
-                  className={`tbh col-span-2 border-s border-b border-[var(--aj-dark)] px-2 py-1 ${
-                    index % 2 === 0
-                      ? "bg-[var(--aj-gray-light)]"
-                      : "bg-[var(--aj-secondary)]"
-                  } ${index === 0 ? "border-t-2" : ""}`}
-                >
-                  {process.arrivalTime}
-                </div>
-                <div
-                  className={`tbh col-span-2 border-s border-b border-[var(--aj-dark)] px-2 py-1 ${
-                    index % 2 === 0
-                      ? "bg-[var(--aj-gray-light)]"
-                      : "bg-[var(--aj-secondary)]"
-                  } ${index === 0 ? "border-t-2" : ""}`}
-                >
-                  {process.burstTime}
-                </div>
-                <div
-                  className={`tbh col-span-2 border-s border-b border-[var(--aj-dark)] px-2 py-1 ${
-                    index % 2 === 0
-                      ? "bg-[var(--aj-gray-light)]"
-                      : "bg-[var(--aj-secondary)]"
-                  } ${index === 0 ? "border-t-2" : ""}`}
-                >
-                  {process.waitingTime}
-                </div>
-                <div
-                  className={`tbh col-span-2 border-s border-b border-[var(--aj-dark)] px-2 py-1 ${
-                    index % 2 === 0
-                      ? "bg-[var(--aj-gray-light)]"
-                      : "bg-[var(--aj-secondary)]"
-                  } ${index === 0 ? "border-t-2" : ""}`}
-                >
-                  {process.completionTime}
-                </div>
-                <div
-                  className={`tbh col-span-2 border-s border-b border-[var(--aj-dark)] px-2 py-1 ${
-                    index % 2 === 0
-                      ? "bg-[var(--aj-gray-light)]"
-                      : "bg-[var(--aj-secondary)]"
-                  } ${index === 0 ? "border-t-2" : ""}`}
-                >
-                  {process.turnAroundTime}
-                </div>
-                <div
-                  className={`tbh col-span-2 border-x border-b border-[var(--aj-dark)] px-2 py-1 ${
-                    index % 2 === 0
-                      ? "bg-[var(--aj-gray-light)]"
-                      : "bg-[var(--aj-secondary)]"
-                  } ${index === 0 ? "border-t-2" : ""}`}
-                >
-                  {process.responseTime}
-                </div>
-              </>
-            ))
+            TABLE.sort((a, b) => Number(a.pid[1]) - Number(b.pid[1])).map(
+              (process, index) => (
+                <>
+                  <div
+                    className={`tbh col-span-1 border-s border-b border-[var(--aj-dark)] px-2 py-1 ${
+                      index % 2 === 0
+                        ? "bg-[var(--aj-gray-light)]"
+                        : "bg-[var(--aj-secondary)]"
+                    } ${index === 0 ? "border-t-2" : ""}`}
+                  >
+                    {process.pid}
+                  </div>
+                  <div
+                    className={`tbh col-span-2 border-s border-b border-[var(--aj-dark)] px-2 py-1 ${
+                      index % 2 === 0
+                        ? "bg-[var(--aj-gray-light)]"
+                        : "bg-[var(--aj-secondary)]"
+                    } ${index === 0 ? "border-t-2" : ""}`}
+                  >
+                    {process.arrivalTime}
+                  </div>
+                  <div
+                    className={`tbh col-span-2 border-s border-b border-[var(--aj-dark)] px-2 py-1 ${
+                      index % 2 === 0
+                        ? "bg-[var(--aj-gray-light)]"
+                        : "bg-[var(--aj-secondary)]"
+                    } ${index === 0 ? "border-t-2" : ""}`}
+                  >
+                    {process.burstTime}
+                  </div>
+                  <div
+                    className={`tbh col-span-2 border-s border-b border-[var(--aj-dark)] px-2 py-1 ${
+                      index % 2 === 0
+                        ? "bg-[var(--aj-gray-light)]"
+                        : "bg-[var(--aj-secondary)]"
+                    } ${index === 0 ? "border-t-2" : ""}`}
+                  >
+                    {process.waitingTime}
+                  </div>
+                  <div
+                    className={`tbh col-span-2 border-s border-b border-[var(--aj-dark)] px-2 py-1 ${
+                      index % 2 === 0
+                        ? "bg-[var(--aj-gray-light)]"
+                        : "bg-[var(--aj-secondary)]"
+                    } ${index === 0 ? "border-t-2" : ""}`}
+                  >
+                    {process.completionTime}
+                  </div>
+                  <div
+                    className={`tbh col-span-2 border-s border-b border-[var(--aj-dark)] px-2 py-1 ${
+                      index % 2 === 0
+                        ? "bg-[var(--aj-gray-light)]"
+                        : "bg-[var(--aj-secondary)]"
+                    } ${index === 0 ? "border-t-2" : ""}`}
+                  >
+                    {process.turnAroundTime}
+                  </div>
+                  <div
+                    className={`tbh col-span-2 border-x border-b border-[var(--aj-dark)] px-2 py-1 ${
+                      index % 2 === 0
+                        ? "bg-[var(--aj-gray-light)]"
+                        : "bg-[var(--aj-secondary)]"
+                    } ${index === 0 ? "border-t-2" : ""}`}
+                  >
+                    {process.responseTime}
+                  </div>
+                </>
+              )
+            )
           )}
         {TABLE.length > 0 && (
           <>
@@ -167,25 +169,27 @@ export default function FCFS({ DATA }: { DATA: ProcessInterface[] }) {
         {TABLE &&
           TABLE.length > 0 &&
           React.Children.toArray(
-            TABLE.map((process, index) => (
-              <div
-                className={`tbh col-span-1 border border-[var(--aj-dark)] px-2 py-1 relative mb-5 ${
-                  index % 2 === 0
-                    ? "bg-[var(--aj-gray-light)]"
-                    : "bg-[var(--aj-secondary)]"
-                } ${index > 0 ? "border-l-0" : ""}`}
-              >
-                {process.pid}
-                {index === 0 && (
-                  <div className="absolute top-full left-0 -translate-x-1/2 w-1 h-full text-[var(--aj-dark)]">
-                    {process.startTime}
+            TABLE.sort((a, b) => a.startTime - b.startTime).map(
+              (process, index) => (
+                <div
+                  className={`tbh col-span-1 border border-[var(--aj-dark)] px-2 py-1 relative mb-5 ${
+                    index % 2 === 0
+                      ? "bg-[var(--aj-gray-light)]"
+                      : "bg-[var(--aj-secondary)]"
+                  } ${index > 0 ? "border-l-0" : ""}`}
+                >
+                  {process.pid}
+                  {index === 0 && (
+                    <div className="absolute top-full left-0 -translate-x-1/2 w-1 h-full text-[var(--aj-dark)]">
+                      {process.startTime}
+                    </div>
+                  )}
+                  <div className="absolute top-full right-0 -translate-x-1/2 w-1 h-full text-[var(--aj-dark)]">
+                    {process.completionTime}
                   </div>
-                )}
-                <div className="absolute top-full right-0 -translate-x-1/2 w-1 h-full text-[var(--aj-dark)]">
-                  {process.completionTime}
                 </div>
-              </div>
-            ))
+              )
+            )
           )}
       </div>
     </section>
