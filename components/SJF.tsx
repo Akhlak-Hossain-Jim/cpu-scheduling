@@ -40,7 +40,7 @@ export default function SJF({ DATA }: { DATA: ProcessInterface[] }) {
   return (
     <section className="p-4 w-full">
       <h2 className="text-2xl text-[var(--aj-light)] font-semibold pb-2">
-        First Come First Serve:
+        Shortest Job First:
       </h2>
       <div className="grid grid-cols-[repeat(13,1fr)] w-full">
         {DATA.length > 0 && (
