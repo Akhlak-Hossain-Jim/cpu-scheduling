@@ -133,6 +133,29 @@ export default function FCFS({ DATA }: { DATA: ProcessInterface[] }) {
               </>
             ))
           )}
+        {TABLE.length > 0 && (
+          <>
+            <div className="tbh col-span-5 border-s border-y border-[var(--aj-dark)] px-2 py-1">
+              Avg.
+            </div>
+            <div className="tbh col-span-2 border-s border-y border-[var(--aj-dark)] px-2 py-1">
+              {TABLE.reduce((acc, curr) => acc + curr.waitingTime, 0) /
+                TABLE.length}
+            </div>
+            <div className="tbh col-span-2 border-s border-y border-[var(--aj-dark)] px-2 py-1">
+              {TABLE.reduce((acc, curr) => acc + curr.completionTime, 0) /
+                TABLE.length}
+            </div>
+            <div className="tbh col-span-2 border-s border-y border-[var(--aj-dark)] px-2 py-1">
+              {TABLE.reduce((acc, curr) => acc + curr.turnAroundTime, 0) /
+                TABLE.length}
+            </div>
+            <div className="tbh col-span-2 border-x border-y border-[var(--aj-dark)] px-2 py-1">
+              {TABLE.reduce((acc, curr) => acc + curr.responseTime, 0) /
+                TABLE.length}
+            </div>
+          </>
+        )}
       </div>
       <h2 className="text-2xl font-semibold pb-2 mt-3">Gantt Chart:</h2>
       <div className="grid grid-cols-[repeat(auto-fill,minmax(50px,1fr))] w-full">
