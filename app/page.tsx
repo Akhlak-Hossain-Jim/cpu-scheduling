@@ -6,12 +6,20 @@ import { ProcessInterface } from "@/utils/interfaces";
 import React, { useEffect, useState } from "react";
 
 export default function Home() {
-  // const DummyInputProcesses: ProcessInterface[] = [
-  //   { pid: "P1", arrivalTime: 0, burstTime: 6 },
-  //   { pid: "P2", arrivalTime: 1, burstTime: 8 },
-  //   { pid: "P3", arrivalTime: 2, burstTime: 3 },
-  //   { pid: "P4", arrivalTime: 3, burstTime: 5 },
-  //   { pid: "P5", arrivalTime: 4, burstTime: 2 },
+  // const FCFSTheory: ProcessInterface[] = [
+  //   { pid: "P1", arrivalTime: 4, burstTime: 7 },
+  //   { pid: "P2", arrivalTime: 3, burstTime: 10 },
+  //   { pid: "P3", arrivalTime: 0, burstTime: 15 },
+  //   { pid: "P4", arrivalTime: 10, burstTime: 3 },
+  // ];
+
+  // const SJFTheory: ProcessInterface[] = [
+  //   { pid: "P1", arrivalTime: 5, burstTime: 7 },
+  //   { pid: "P2", arrivalTime: 1, burstTime: 5 },
+  //   { pid: "P3", arrivalTime: 3, burstTime: 12 },
+  //   { pid: "P4", arrivalTime: 7, burstTime: 10 },
+  //   { pid: "P5", arrivalTime: 6, burstTime: 9 },
+  //   { pid: "P6", arrivalTime: 10, burstTime: 15 },
   // ];
 
   const [Process, setProcess] = useState<ProcessInterface[]>([]);
@@ -29,7 +37,7 @@ export default function Home() {
 
   return (
     <main className="w-[min(1440px,100%)] mx-auto my-0 text-black">
-      <div className="grid grid-cols-[repeat(13,1fr)] h-dvh overflow-hidden">
+      <div className="grid grid-cols-[repeat(13,1fr)] h-dvh overflow-hidden print:flex print:flex-col print:gap-4">
         <div className="col-span-5 bg-[var(--aj-dark)]">
           <SJF DATA={Process} />
         </div>
